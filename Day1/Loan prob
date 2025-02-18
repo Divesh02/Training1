@@ -1,0 +1,28 @@
+#include <stdio.h>
+// Function to check loan eligibility 
+void check_loan_eligibility(int salary, int credit_score,int experience)
+{
+    if (salary >= 30000 &&credit_score >= 750 && experience >= 2)
+      {
+        printf("LoanApproved\n");
+      } 
+    else
+      { 
+    printf("LoanDenied\n");
+    
+      }
+}
+int main() 
+{ 
+    int salary, credit_score,experience;
+// Input details
+printf("Enter Salary: ");
+scanf("%d", &salary);
+printf("Enter Credit Score: ");
+scanf("%d", &credit_score);
+printf("Enter Experience (Years): ");
+scanf("%d", &experience);
+// Check eligibility
+check_loan_eligibility(salary,credit_score, experience);
+return 0;
+}
