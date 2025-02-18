@@ -1,0 +1,72 @@
+#include<stdio.h>
+#include<string.h>
+void reademployee(int*p_id,char*name,float*p_sal,int*p_att)
+{
+    printf("Enter the  employee id\n");
+   scanf("%d",p_id);
+   printf("Enter the employee name\n");
+   scanf("%s",name);
+   printf("Enter the salary\n");
+   scanf("%f",p_sal);
+   printf("Enter the attendence \n");
+   scanf("%d",p_att);
+}
+float calculatebonus(float sal,int att)
+{
+    float bonus=0.0f;
+    if(att>25)
+    {
+      bonus =(sal/100.0f)*5.0f;
+
+    }else if(att < 10)
+    {
+      bonus=(-1.0f * ((sal/100.0f)*50.0f));
+    }
+    return bonus;
+}
+void categorizedemployee(char*category,int att)
+{
+    if (att>25)
+     {
+      strcpy(category,"Excellent");
+
+     }else if(att<15)
+     {
+      strcpy(category,"Need improvement");
+     }
+}
+void printPayroll(int id,char*name,float sal,float bonus,float gross_salary,char*category)
+{
+    printf("ID =%d\n",id);
+     printf("Name =%s\n",name);
+     if(bonus >=1)
+     {
+      printf("bonus =%0.2f\n",bonus);
+     }
+     printf("final salary:%0.2f\n",gross_salary);
+     printf("Employee performanace catagory:%s\n",category);
+}
+void main ()
+{
+   int id;
+   char name[20];
+   float sal ;
+   int att;
+    //read employee
+    reademployee(&id,name,&sal,&att);
+  //process payroll
+    float bonus=0.01f;
+    float gross_salary =0.0f;
+    char category[60] ="Good";
+
+   //calculate bonus
+   bonus =calculatebonus(sal,att);
+   
+    //final salary
+     gross_salary =(sal+bonus);
+     //catagerize employee
+     categorizedemployee(category,att);
+     //display the output
+     printPayroll(id,name,sal,gross_salary,category)
+   
+}
