@@ -1,0 +1,51 @@
+#include <stdio.h>
+void readdetail(int *p_sal, float *p_score, int *p_exp) 
+{
+    printf("Enter the employee salary\n");
+    scanf("%d", p_sal);
+    printf("Enter the employee credit Score\n");
+    scanf("%f", p_score);
+    printf("Enter the employee Experience\n");
+    scanf("%d", p_exp);
+}
+
+int Iselegible(int sal, float score, int exp)
+{
+    return ((sal >= 30000) && (score >= 750) && (exp >= 2));
+}
+
+void main() 
+{
+    int sal; 
+    float score;
+    int exp;
+    char choice;
+
+    do {
+        readdetail(&sal, &score, &exp);
+        if (Iselegible(sal, score, exp)) 
+        {
+            printf("Loan Approved\n");
+        }
+        else {
+            printf("Not Approved\n");
+        }
+
+         while (getchar()!= '\n');
+        printf("Do you want to continue?: ");
+        scanf("%c", &choice);
+
+        switch (choice) 
+        {
+            case 'y' :
+            case'Y':
+                break; 
+            case 'n':;case 'N':
+                break; 
+            default:
+                printf("Invalid choice.\n");
+        }
+    }
+    while (choice == 'y' || choice == 'Y');
+ 
+}
