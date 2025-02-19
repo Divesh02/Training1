@@ -1,0 +1,30 @@
+Factorial using reccurtion 
+#include<stdio.h>
+long factorialcal(int n);
+int main()
+{
+   int num;
+   printf("Enter the no :\n");
+   scanf("%d",&num);
+   if(num <0)
+      {
+         printf("The factorial can not be found for negetive number\n");
+      }
+   else 
+      {
+         printf("The factorial of %d is %d",num, factorialcal(num));
+      }
+    return 0;
+}
+// logic
+loan factorialcal(int n)
+{
+    if (n==0)
+    {
+        return 1;
+    }
+    else
+    {
+        return n*factorialcal(n-1);
+    }
+}
