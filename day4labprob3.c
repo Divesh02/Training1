@@ -1,69 +1,47 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h>
 
-struct Employee_t {
-    int id;
-    char name[255];
-    float salary;
-    char department[50];
-};
-
-typedef struct Employee_t Employee;
-
-void readEmployees(Employee emp[], int n);
-void displayEmployees(Employee emp[], int n);
-Employee findHighestSalary(Employee emp[], int n);
-
-int main() {
-    int employeeCount;
-    printf("Enter number of employees: ");
-    scanf("%d", &employeeCount);
-
-    Employee employees[1000];
-    readEmployees(employees, employeeCount);
-    displayEmployees(employees, employeeCount);
-    Employee highestSalariedEmployee = findHighestSalary(employees, employeeCount);
-
-    printf("\nEmployee with highest salary: %s, %.2f (%s)\n",
-           highestSalariedEmployee.name,
-           highestSalariedEmployee.salary,
-           highestSalariedEmployee.department);
-
-    return 0;
-}
-
-void readEmployees(Employee emp[], int n) {
-    for (int i = 0; i < n; i++) {
-        printf("\nEnter details for employee %d:\n", i + 1);
-        printf("ID: ");
-        scanf("%d", &emp[i].id);
-        printf("Name: ");
-        scanf(" %[^\n]s", emp[i].name); // Read name with spaces
-        printf("Salary: ");
-        scanf("%f", &emp[i].salary);
-        printf("Department: ");
-        scanf(" %[^\n]s", emp[i].department); // Read department with spaces
-    }
-}
-
-void displayEmployees(Employee emp[], int n) {
-    printf("\nEmployee Details:\n");
-    for (int i = 0; i < n; i++) {
-        printf("ID: %d, Name: %s, Salary: %.2f, Department: %s\n",
-               emp[i].id, emp[i].name, emp[i].salary, emp[i].department);
-    }
-}
-
-Employee findHighestSalary(Employee emp[], int n) {
-    if (n <= 0) {
-        Employee emptyEmployee = {0, "", 0.0, ""}; // Return an empty employee if array is empty
-        return emptyEmployee;
+void countWordsAndLines(char filename[]) {
+    FILE *fp = fopen(filename, "r");
+    if (fp == NULL) {
+        printf("Error opening file: %s\n", filename);
+        return;
     }
 
-    Employee highestSalaried = emp[0];
-    for (int i = 1; i < n; i++) {
-        if (emp[i].salary > highestSalaried.salary) {
-            highestSalaried = emp[i];
+    int lineCount = 0;
+    int wordCount = 0;
+    char ch;
+    int inWord = 0; // Flag to track if we are inside a word
+
+    while ((ch = fgetc(fp)) != EOF) {
+        if (ch == '\n') {
+            lineCount++;
+        }
+
+        if (isspace(ch)) {
+            if (inWord) {
+                wordCount++;
+                inWord = 0;
+            }
+        } else {
+            inWord = 1;
         }
     }
-    return highestSalaried;
+
+    // Check for the last word if the file doesn't end with a space or newline.
+    if (inWord) {
+        wordCount++;
+    }
+
+    printf("Total Lines: %d\n", lineCount);
+    printf("Total Words: %d\n", wordCount);
+
+    fclose(fp);
+}
+
+int main() {
+    char filename[] = "data.txt"; // Replace with your file name
+    countWordsAndLines(filename);
+    return 0;
 }
